@@ -1,0 +1,279 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BusinessOrganizer"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" 
+        xmlns:pivot="http://schemas.telerik.com/2008/xaml/presentation/pivot" 
+        x:Class="BusinessOrganizer.NewAppointmentWindow"
+        mc:Ignorable="d"
+        Title="Appointment" 
+        Height="290" 
+        Width="550" 
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+    <!--Styles-->
+    <Window.Resources>
+        <Style TargetType="Rectangle" 
+               BasedOn="{StaticResource RectangleIconStyle}"/>
+        <Style TargetType="Label" 
+               BasedOn="{StaticResource LabelStyle}"/>
+
+        <Style TargetType="telerik:RadButton" x:Key="PriorityStyle">
+            <Setter Property="Margin" Value="0 2 0 8"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Width" Value="22"/>
+            <Setter Property="Height" Value="22"/>
+            <Setter Property="Background" Value="White"/>
+        </Style>
+        <Style TargetType="Image">
+            <Setter Property="Width" Value="15"/>
+            <Setter Property="Height" Value="22"/>
+            <Setter Property="Margin" Value="0 0 0 0"/>
+        </Style>
+    </Window.Resources>
+
+    <!--Grid-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!--Menu-->
+        <StackPanel Orientation="Horizontal">
+            <telerik:RadRibbonButton Content="Edit Reccurence"
+                                     x:Name="EditReccurenceButton"
+                                     Click="EditReccurenceButton_Click"
+                                     Margin="5 2 0 10"/>
+            <Border Height="20" 
+                Width="1"
+                HorizontalAlignment="Left"
+                BorderThickness="0 0 1 0"
+                BorderBrush="Gray"
+                Margin="3" VerticalAlignment="Top" />
+            <Label Content="Show As"
+                   VerticalAlignment="Top"/>
+
+            <telerik:RadComboBox
+                x:Name="CategoriesComboBox"
+                Width="136" Height="10"
+                Margin="0 3 0 0"
+                VerticalAlignment="Top">
+                <telerik:RadComboBox.Items>
+                    <telerik:RadComboBoxItem Content="Categories" 
+                                             IsSelected="True" 
+                                             Visibility="Collapsed"/>
+                    <telerik:RadComboBoxItem x:Name="YellowCategory">
+                        <StackPanel Orientation="Horizontal">
+                            <Rectangle Fill="{StaticResource YellowCategoryBrush}" />
+                            <Border BorderThickness="1, 0, 0, 0" 
+                                    BorderBrush="Gray" 
+                                    Width="1" 
+                                    Margin="5 0 0 0" />
+                            <TextBlock Text="Yellow" 
+                                       Margin="5 0 0 0" />
+                        </StackPanel>
+                    </telerik:RadComboBoxItem>
+                    <telerik:RadComboBoxItem  x:Name="GreenCategory">
+                        <StackPanel Orientation="Horizontal">
+                            <Rectangle Fill="{StaticResource GreenCategoryBrush}" />
+                            <Border BorderThickness="1, 0, 0, 0" 
+                                    BorderBrush="Gray" 
+                                    Width="1" 
+                                    Margin="5 0 0 0" />
+                            <TextBlock Text="Green" 
+                                       Margin="5 0 0 0" />
+                        </StackPanel>
+                    </telerik:RadComboBoxItem>
+                    <telerik:RadComboBoxItem x:Name="PurpleCategory">
+                        <StackPanel Orientation="Horizontal">
+                            <Rectangle Fill="{StaticResource PurpleCategoryBrush}" />
+                            <Border BorderThickness="1, 0, 0, 0" 
+                                    BorderBrush="Gray" 
+                                    Width="1" 
+                                    Margin="5 0 0 0" />
+                            <TextBlock Text="Purple" 
+                                       Margin="5 0 0 0" />
+                        </StackPanel>
+                    </telerik:RadComboBoxItem>
+                    <telerik:RadComboBoxItem x:Name="PinkCategory">
+                        <StackPanel Orientation="Horizontal">
+                            <Rectangle Fill="{StaticResource PinkCategoryBrush}" />
+                            <Border BorderThickness="1, 0, 0, 0" 
+                                    BorderBrush="Gray" 
+                                    Width="1" 
+                                    Margin="5 0 0 0" />
+                            <TextBlock Text="Pink" 
+                                       Margin="5 0 0 0" />
+                        </StackPanel>
+                    </telerik:RadComboBoxItem>
+                </telerik:RadComboBox.Items>
+            </telerik:RadComboBox>            
+           
+            <!--Time Markers-->
+            <telerik:RadComboBox
+                x:Name="TimeMarkersComboBox"
+                Width="136" 
+                MinHeight="22"     
+                Margin="5 3 5 0"
+                VerticalAlignment="Top">
+                <telerik:RadComboBox.Items>
+                    <telerik:RadComboBoxItem Content="Time Markers"
+                                             IsSelected="True"
+                                             Visibility="Collapsed">
+                    </telerik:RadComboBoxItem>
+                    <telerik:RadComboBoxItem x:Name="FreeTimeMarker">
+                        <StackPanel Orientation="Horizontal">
+                            <Rectangle Fill="{StaticResource FreeMarkerBrush}" />
+                            <Border BorderThickness="1, 0, 0, 0" 
+                                    BorderBrush="Gray" 
+                                    Width="1" 
+                                    Margin="5 0 0 0" />
+                            <TextBlock Text="Free" 
+                                       Margin="5 0 0 0" />
+                        </StackPanel>
+                    </telerik:RadComboBoxItem>
+                    <telerik:RadComboBoxItem x:Name="BusyTimeMarker">
+                        <StackPanel Orientation="Horizontal">
+                            <Rectangle Fill="{StaticResource BusyMarkerBrush}" />
+                            <Border BorderThickness="1, 0, 0, 0" 
+                                    BorderBrush="Gray" 
+                                    Width="1" 
+                                    Margin="5 0 0 0" />
+                            <TextBlock Text="Busy" 
+                                       Margin="5 0 0 0" />
+                        </StackPanel>
+                    </telerik:RadComboBoxItem>
+                    <telerik:RadComboBoxItem x:Name="TentativeTimeMarker">
+                        <StackPanel Orientation="Horizontal">
+                            <Rectangle Fill="{StaticResource TentativeMarkerBrush}" />
+                            <Border BorderThickness="1, 0, 0, 0" 
+                                    BorderBrush="Gray" 
+                                    Width="1" 
+                                    Margin="5 0 0 0" />
+                            <TextBlock Text="Tentative" 
+                                       Margin="5 0 0 0" />
+                        </StackPanel>
+                    </telerik:RadComboBoxItem>
+                    <telerik:RadComboBoxItem x:Name="OutOfOfficeTimeMarker">
+                        <StackPanel Orientation="Horizontal">
+                            <Rectangle Fill="{StaticResource OutOfOfficeMarkerBrush}" />
+                            <Border BorderThickness="1, 0, 0, 0" 
+                                    BorderBrush="Gray" 
+                                    Width="1" 
+                                    Margin="5 0 0 0" />
+                            <TextBlock Text="Out Of Office" 
+                                       Margin="5 0 0 0" />
+                        </StackPanel>
+                    </telerik:RadComboBoxItem>
+                </telerik:RadComboBox.Items>
+            </telerik:RadComboBox>
+            
+            <!--HighImportance-->
+                        <telerik:RadButton Style="{StaticResource PriorityStyle}"
+                                           Click="HighImportanceButton_Click"
+                                           x:Name="HighImportanceButton"
+                                           ToolTip="High Importance"
+                                           VerticalAlignment="Top">
+                            <Image Source="/Images/high_importance.png"/>
+                        </telerik:RadButton>
+            <!--LowImportance-->
+                        <telerik:RadButton Style="{StaticResource PriorityStyle}"
+                                           Click="LowImportanceButton_Click"
+                                           x:Name="LowImportanceButton"
+                                           ToolTip="Low Importance"
+                                            VerticalAlignment="Top">
+                            <Image Source="/Images/low_importance.png"
+                                   x:Name="LowImportanceSelected"/>
+                        </telerik:RadButton>
+        </StackPanel>
+
+        <!--Border-->
+        <StackPanel Grid.Row="1">
+            <Border BorderThickness="0 1 0 0"
+                    BorderBrush="Gray"
+                    Width="550"
+                    Visibility="Visible"
+                    Margin="0 -8 0 0"/>
+        </StackPanel>
+
+        <!--middle-->
+        <StackPanel Grid.Row="1">
+            <StackPanel 
+             Orientation="Horizontal" 
+             Margin="5 0 0 0">
+                <Label 
+                  Content="Subject" 
+                  Margin="0 6 40 0"/>
+                <TextBox 
+                  Margin="10 8 0 0" 
+                  Width="420" 
+                  MaxLength="50"
+                  x:Name="TbSubject" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="5 0 0 0">
+                <Label Content="Description" 
+                     VerticalAlignment="Top"
+                     Margin="0 1 20 0"/>
+                <TextBox Margin="10 5 0 0" 
+                       x:Name="TbDescription"
+                       Width="420" 
+                       Height="70" 
+                       MaxLength="5000"
+                       VerticalContentAlignment="Top"
+                       ScrollViewer.VerticalScrollBarVisibility="Visible"/>
+            </StackPanel>
+            <!--line StartTime-->
+            <StackPanel Orientation="Horizontal" 
+                     Margin="5 0 0 5">
+                <Label Content="Start time"                    
+                     Margin="0 0 40 0"/>
+                <telerik:RadDateTimePicker 
+                    Margin="0 5 0 0"                       
+                    Grid.Row="1" 
+                    x:Name="StartTimeDatePicker"
+                    Width="210"
+                    Height="21"/>
+            </StackPanel>
+            <!--Line EndTime-->
+            <StackPanel Orientation="Horizontal" 
+                     Margin="5 -3 5 0">
+                <Label Content="End time" 
+                     Margin="0 0 40 0"/>
+                <telerik:RadDateTimePicker 
+                    x:Name="EndTimeDatePicker"
+                    Margin="5 0 0 0"                       
+                    Grid.Row="1" 
+                    Width="210"
+                    Height="21"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Left"
+                        Margin="105 0 0 0">     
+            <CheckBox 
+                    Content="All day event"
+                    x:Name="IsAllDayEventRadioButton"
+                    Click="IsAllDayEventRadioButton_Click"/>
+            </StackPanel>
+            <StackPanel/>
+
+            <StackPanel HorizontalAlignment="Right" 
+                        Orientation="Horizontal">
+                <telerik:RadButton 
+                    Content="OK"
+                    Height="23"
+                    Width="85"
+                    x:Name="OKButton"
+                    Click="OKButton_Click"/>
+                <telerik:RadButton 
+                    Content="Cancel" 
+                    Margin="5 0 15 0"
+                    Width="85"
+                    Height="23"
+                    x:Name="CancelButton"
+                    Click="CancelButton_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

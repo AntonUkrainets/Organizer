@@ -1,0 +1,464 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BusinessOrganizer"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" x:Class="BusinessOrganizer.CountReccurenceOfAppointmentWindow"
+        mc:Ignorable="d"
+        Title="Recurrence" 
+        Height="380" 
+        Width="550"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+    <Window.Resources>
+        <Style TargetType="Label" BasedOn="{StaticResource LabelStyle}"/>
+        <Style TargetType="RadioButton">
+            <Setter Property="Margin" Value="20 0 0 0"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90"/>
+            <RowDefinition Height="110"/>
+            <RowDefinition Height="110"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!--Appointment time-->
+        <Border BorderThickness="1"
+                    BorderBrush="DimGray"
+                    Height="70"
+                    Width="520"
+                Margin="5 10 5 5"/>        
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Appointment time" 
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Margin="20 0 0 0"
+                       Background="White"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <Label Content="Start"
+                   Margin="0 -5 0 0"
+                   HorizontalAlignment="Left"/>
+                <telerik:RadTimePicker
+                    Height="23"
+                    Width="120"
+                    Margin="20 -5 0 0"
+                    x:Name="StartTimePicker"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <Label Content="End"
+                   Margin="2 0 0 0"
+                   HorizontalAlignment="Left"/>
+                <telerik:RadTimePicker
+                    Height="23"
+                    Width="120"
+                    Margin="21 0 0 0"
+                    x:Name="EndTimePicker"/>
+            </StackPanel>
+        </StackPanel>        
+        <!--Reccurence pattern-->
+        <Border BorderThickness="1"
+                    BorderBrush="DimGray"
+                    Height="100"
+                    Width="520"
+                    Grid.Row="1"
+                    Margin="5 5 5 5"/>
+        <StackPanel Grid.Row="1">
+            <Label Content="Reccurence pattern" 
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Margin="20 -7 0 0"
+                       Background="White"/>
+            <StackPanel Orientation="Horizontal">
+            <StackPanel HorizontalAlignment="Left">
+                    <RadioButton Content="Daily"
+                             x:Name="DailyRadioButton"
+                             Click="DailyRadioButton_Click"/>
+                    <RadioButton Content="Weekly"
+                             x:Name="WeeklyButton"
+                             IsChecked="True"
+                             Margin="20 5 0 0"
+                             Click="WeeklyButton_Click"/>
+                <RadioButton Content="Monthly"
+                             x:Name="MonthlyButton"
+                             Margin="20 5 0 0"
+                             Click="MonthlyButton_Click"/>
+                <RadioButton Content="Yearly"                             
+                             Margin="20 5 0 0"
+                             x:Name="YearlyRadioButton"
+                             Click="YearlyRadioButton_Click"/>
+            </StackPanel>
+                <!--DailyPanel-->
+                <StackPanel Orientation="Horizontal">
+                    <Grid Visibility="Collapsed" 
+                          Margin="15 0 0 0"
+                          x:Name="DailyPanel">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                            <RadioButton Content="Every"
+                                         GroupName="Daily"
+                                         Margin="5 5 0 0"
+                                         VerticalAlignment="Top"
+                                         x:Name="DailyEveryRadioButton"
+                                         Click="DailyEveryRadioButton_Click"
+                                         IsChecked="True"/>
+                            <telerik:RadNumericUpDown HorizontalAlignment="Left" 
+                                                      VerticalAlignment="Top"
+                                                      Margin="5 0 0 0"
+                                                      Height="22"
+                                                      Width="75"
+                                                      Minimum="1"
+                                                      Maximum="7"
+                                                      Value="1"
+                                                      x:Name="DailyEveryNumeric"/>
+                            <Label Content="day(s)"
+                                   Margin="5 0 0 0"
+                                   VerticalAlignment="Top"/>
+                        </StackPanel>
+                        <StackPanel VerticalAlignment="Bottom">
+                            <RadioButton Content="Every weekday"
+                                         GroupName="Daily"
+                                         HorizontalAlignment="Left"
+                                         Margin="5 0 0 0"
+                                         x:Name="DailyEveryWeekdayRadioButton"
+                                         Click="DailyEveryWeekdayRadioButton_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+                <!--WeeklyPanel-->
+                <StackPanel Orientation="Horizontal">
+                    <Grid Visibility="Visible" 
+                          Margin="15 0 0 0"
+                          x:Name="WeeklyPanel">
+                        <StackPanel Orientation="Horizontal"
+                                    VerticalAlignment="Top">
+                        <Label Content="Recur every"
+                           VerticalAlignment="Top"
+                           Margin="5 0 0 0"/>
+                        <telerik:RadNumericUpDown VerticalAlignment="Top"
+                                              Margin="5 3 0 0"
+                                              Width="75"
+                                              Value="1"
+                                              Minimum="1"
+                                              Maximum="100"
+                                              x:Name="WeeklyNumeric"/>
+                        <Label Content="week(s) on:" 
+                           VerticalAlignment="Top"
+                           Margin="5 0 0 0"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 15 0 0"
+                                    VerticalAlignment="Center">
+                            <CheckBox Content="Monday" 
+                                      x:Name="MondayCheckBox"/>
+                            <CheckBox Content="Tuesday"
+                                         x:Name="TuesdayCheckBox"/>
+                            <CheckBox Content="Wednesday"
+                                      Margin="5 0 0 0"
+                                         x:Name="WednesdayCheckBox"/>
+                            <CheckBox Content="Thursday"
+                                         x:Name="ThursdayCheckBox"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                    VerticalAlignment="Bottom">
+                            <CheckBox Content="Friday"
+                                         x:Name="FridayCheckBox"/>
+                            <CheckBox Content="Saturday"
+                                         x:Name="SaturdayCheckBox"
+                                         Margin="13 0 0 0"/>
+                            <CheckBox Content="Sunday"
+                                         x:Name="SundayCheckBox"
+                                         Margin="2 0 0 0"/>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+                <!--Monthly-->
+                <StackPanel Orientation="Horizontal"
+                           Visibility="Collapsed" 
+                          Margin="15 0 0 0"
+                          x:Name="MonthlyPanel">
+                    <Grid>
+                        <StackPanel Orientation="Horizontal"
+                                    VerticalAlignment="Top">
+                            <RadioButton Content="Day"
+                                         Margin="0 5 0 0"
+                                         IsChecked="True"
+                                         GroupName="Monthly"
+                                         x:Name="MonthlydayRadioButton"
+                                         Click="MonthlydayRadioButton_Click"/>
+                            <telerik:RadNumericUpDown Width="75"
+                                                      Margin="10 0 0 0"
+                                                      Maximum="31"
+                                                      Minimum="1"                                                   
+                                                      x:Name="MonthlyDayNumeric"/>
+                            <Label Content="of every"/>
+                            <telerik:RadNumericUpDown Width="75"
+                                                      Margin="10 0 0 0"
+                                                      Maximum="12"
+                                                      Minimum="1"
+                                                      Value="1"
+                                                      x:Name="MonthlyDayOfEveryNumeric"/>
+                            <Label Content="month(s)"/>
+                        </StackPanel>
+                        <StackPanel VerticalAlignment="Bottom"
+                                    Orientation="Horizontal">
+                            <RadioButton Content="The"
+                                         Margin="0 7 0 0"
+                                         GroupName="Monthly"
+                                         x:Name="MonthlyTheRadioButton"
+                                         Click="MonthlyTheRadioButton_Click"/>
+                            <telerik:RadComboBox VerticalAlignment="Bottom"
+                                                 Width="75"
+                                                 Margin="10 -20 0 0"
+                                                 x:Name="MonthlyTheDayComboBox"
+                                                 IsEnabled="False">
+                                <telerik:RadComboBoxItem Content="first"
+                                                         Width="75"
+                                                         IsSelected="True"/>
+                                <telerik:RadComboBoxItem Content="second"/>
+                                <telerik:RadComboBoxItem Content="third"/>
+                                <telerik:RadComboBoxItem Content="fourth"/>
+                                <telerik:RadComboBoxItem Content="last"/>
+                            </telerik:RadComboBox>
+                            <telerik:RadComboBox Width="90"
+                                                 VerticalAlignment="Bottom"
+                                                 Margin="5 0 0 0"
+                                                 x:Name="MonthlyTheSecondDayComboBox"
+                                                 IsEnabled="False">                                                              
+                                <telerik:RadComboBoxItem Content="Monday"
+                                                         x:Name="MondayComboBox"/>
+                                <telerik:RadComboBoxItem Content="Tuesday"
+                                                         x:Name="TuesdayComboBox"/>
+                                <telerik:RadComboBoxItem Content="Wednesday"
+                                                         x:Name="WednesdayComboBox"/>
+                                <telerik:RadComboBoxItem Content="Thursday"
+                                                         x:Name="ThursdayComboBox"/>
+                                <telerik:RadComboBoxItem Content="Friday"
+                                                         x:Name="FridayComboBox"/>
+                                <telerik:RadComboBoxItem Content="Saturday"
+                                                         x:Name="SaturdayComboBox"/>
+                                <telerik:RadComboBoxItem Content="Sunday"
+                                                         x:Name="SundayComboBox"/>
+                                <telerik:RadComboBoxItem Content="day"
+                                                         Width="90"/>
+                                <telerik:RadComboBoxItem Content="weekday"/>
+                                <telerik:RadComboBoxItem Content="weekend day"/>
+                            </telerik:RadComboBox>
+                            <Label Content="of every"/>
+                            <telerik:RadNumericUpDown Width="75"
+                                                      Margin="10 0 0 0"
+                                                      Maximum="31"
+                                                      Minimum="1"
+                                                      Value="1"
+                                                      IsEnabled="False"
+                                                      x:Name="MonthlyOfEveryNumeric"/>
+                            <Label Content="month(s)"/>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+                <!--Yearly-->
+                <StackPanel Orientation="Horizontal"
+                           Visibility="Collapsed" 
+                          Margin="15 0 0 0"
+                          x:Name="YearlyPanel">
+                    <Grid>
+                        <StackPanel Orientation="Horizontal"
+                                    VerticalAlignment="Top">
+                            <RadioButton Content="Every"
+                                         Margin="0 5 0 0"
+                                         IsChecked="True"
+                                         GroupName="Yearly"
+                                         x:Name="YearlyEveryRadioButton"
+                                         Click="YearlyEveryRadioButton_Click"/>
+                            <telerik:RadComboBox Width="75"
+                                                 Margin="10 0 0 0"
+                                                 x:Name="YearlyEveryComboBox">
+                                <ComboBoxItem Content="January" Width="100"
+                                              x:Name="JanuaryComboBox"/>
+                                <ComboBoxItem Content="February"
+                                              x:Name="FebruaryComboBox"/>
+                                <ComboBoxItem Content="March"
+                                              x:Name="MarchComboBox"/>
+                                <ComboBoxItem Content="April"
+                                              x:Name="AprilComboBox"/>
+                                <ComboBoxItem Content="May"
+                                              x:Name="MayComboBox"/>
+                                <ComboBoxItem Content="June"
+                                              x:Name="JuneComboBox"/>
+                                <ComboBoxItem Content="July"
+                                              x:Name="JulyComboBox"/>
+                                <ComboBoxItem Content="August"
+                                              x:Name="AugustComboBox"/>
+                                <ComboBoxItem Content="September"
+                                              x:Name="SeptemberComboBox"/>
+                                <ComboBoxItem Content="October"
+                                              x:Name="OctoberComboBox"/>
+                                <ComboBoxItem Content="November"
+                                              x:Name="NovemberComboBox"/>
+                                <ComboBoxItem Content="December"
+                                              x:Name="DecemberComboBox"/>
+                            </telerik:RadComboBox>
+                            <telerik:RadNumericUpDown Width="75"
+                                                      Margin="5 0 0 0"
+                                                      Maximum="31"
+                                                      Minimum="1"
+                                                      Value="1"                                                      
+                                                      x:Name="YearlyEveryNumeric"/>                            
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                    VerticalAlignment="Bottom">
+                            <RadioButton Content="The"
+                                         Margin="0 7 0 0" 
+                                         GroupName="Yearly"
+                                         x:Name="YearlyTheRadioButton"
+                                         Click="YearlyTheRadioButton_Click"/>
+                            <telerik:RadComboBox VerticalAlignment="Bottom"
+                                                 Width="75"
+                                                 Margin="10 -20 0 0"
+                                                 x:Name="YearlyTheDayComboBox"
+                                                 IsEnabled="False">
+                                <telerik:RadComboBoxItem Content="first"
+                                                         Width="75"
+                                                         IsSelected="True"/>
+                                <telerik:RadComboBoxItem Content="second"/>
+                                <telerik:RadComboBoxItem Content="third"/>
+                                <telerik:RadComboBoxItem Content="fourth"/>
+                                <telerik:RadComboBoxItem Content="last"/>
+                            </telerik:RadComboBox>
+                            <telerik:RadComboBox Width="90"
+                                                 VerticalAlignment="Bottom"
+                                                 Margin="5 0 0 0"
+                                                 IsEnabled="False"
+                                                 x:Name="YearlyTheSecondDayComboBox">
+                                <telerik:RadComboBoxItem Content="Monday"
+                                                         x:Name="YearlyMondayComboBox"/>
+                                <telerik:RadComboBoxItem Content="Tuesday"
+                                                         x:Name="YearlyTuesdayComboBox"/>
+                                <telerik:RadComboBoxItem Content="Wednesday"
+                                                         x:Name="YearlyWednesdayComboBox"/>
+                                <telerik:RadComboBoxItem Content="Thursday"
+                                                         x:Name="YearlyThursdayComboBox"/>
+                                <telerik:RadComboBoxItem Content="Friday"
+                                                         x:Name="YearlyFridayComboBox"/>
+                                <telerik:RadComboBoxItem Content="Saturday"
+                                                         x:Name="YearlySaturdayComboBox"/>
+                                <telerik:RadComboBoxItem Content="Sunday"
+                                                         x:Name="YearlySundayComboBox"/>
+                                
+                                <telerik:RadComboBoxItem Content="day"
+                                                         x:Name="DayComboBoxItem"
+                                                         Width="90"/>
+                                <telerik:RadComboBoxItem Content="weekday"
+                                                         x:Name="WeekDayComboBoxItem"/>
+                                <telerik:RadComboBoxItem Content="weekend day"
+                                                         x:Name="WeekendDayComboBoxItem"/>
+                            </telerik:RadComboBox>
+                            <Label Content="of"/>
+                            <telerik:RadComboBox Width="100" Height="22"
+                                                 Margin="0 3 0 0"
+                                                 IsEnabled="False"
+                                                 VerticalAlignment="Bottom"
+                                                 x:Name="YearlyOfDayRadComboBox">
+                                <telerik:RadComboBoxItem Content="January"/>
+                                <telerik:RadComboBoxItem Content="February"/>
+                                <telerik:RadComboBoxItem Content="March"/>
+                                <telerik:RadComboBoxItem Content="April"/>
+                                <telerik:RadComboBoxItem Content="May"/>
+                                <telerik:RadComboBoxItem Content="June"/>
+                                <telerik:RadComboBoxItem Content="July"/>
+                                <telerik:RadComboBoxItem Content="August"/>
+                                <telerik:RadComboBoxItem Content="September"/>
+                                <telerik:RadComboBoxItem Content="October"/>
+                                <telerik:RadComboBoxItem Content="November"/>
+                                <telerik:RadComboBoxItem Content="December"/>
+                            </telerik:RadComboBox>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </StackPanel>           
+        </StackPanel>
+        <!--Range of reccurence-->
+        <Border BorderThickness="1"
+                    BorderBrush="DimGray"
+                    Height="90"
+                    Width="520"
+                    Grid.Row="2"
+                    Margin="5 0 5 5"/>
+        <StackPanel Grid.Row="2">
+            <Label Content="Range of reccurence" 
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Margin="20 -2 0 0"
+                       Background="White"/>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <RadioButton Content="No end Date"
+                             GroupName="RangeOfReccurence"
+                             IsChecked="True"
+                             x:Name="NoEndDateRadioButton"
+                             Click="NoEndDateRadioButton_Click"/>                
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Margin="0 5 0 0">
+                <Label Content="Start"/>
+                <telerik:RadDatePicker x:Name="StartDatePicker"
+                                       Margin="5 0 0 0"
+                                       Width="100"
+                                       Height="23"/>
+                <RadioButton Content="End after"
+                             Margin="49 0 0 0"
+                             VerticalAlignment="Center"
+                             GroupName="RangeOfReccurence"
+                             x:Name="EndAfterRadioButton"
+                             Click="EndAfterRadioButton_Click"/>
+                    <telerik:RadNumericUpDown Margin="40 0 0 0"
+                                              Height="23"
+                                              Value="1"
+                                              Minimum="1"
+                                              Maximum="100"
+                                              Width="75"
+                                              IsEnabled="False"
+                                              x:Name="CountRecurrencesNumeric"/>
+                <Label Content="occurences"
+                       Margin="5 0 0 0"/>                
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <RadioButton Content="End by"
+                             Margin="115 5 0 0"
+                             GroupName="RangeOfReccurence"
+                             x:Name="EndByRadioButton"
+                             Click="EndByRadioButton_Click"/>
+                 <telerik:RadDatePicker x:Name="EndByDatePicker"
+                                       Margin="15 0 0 0"
+                                       Width="112"
+                                       IsEnabled="False"
+                                       Height="23"/>
+            </StackPanel>
+        </StackPanel>
+        <!--Buttons-->
+        <StackPanel HorizontalAlignment="Right"
+                    Orientation="Horizontal"
+                    VerticalAlignment="Top"
+                    Grid.Row="3">
+            <telerik:RadButton Content="OK"
+                               Margin="0 0 15 0"                               
+                               x:Name="OKButton"
+                               Click="OKButton_Click"
+                               Width="75"/>
+            <telerik:RadButton Content="Cancel"
+                               Margin="0 0 15 0"
+                               x:Name="CancelButton"
+                               Click="CancelButton_Click"
+                               Width="75"/>
+        </StackPanel>
+    </Grid>
+</Window>
